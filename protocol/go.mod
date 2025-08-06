@@ -57,7 +57,7 @@ require (
 	github.com/cosmos/cosmos-db v1.1.3
 	github.com/cosmos/iavl v1.3.5
 	github.com/cosmos/ibc-go/modules/capability v1.0.1
-	github.com/cosmos/ibc-go/v8 v8.5.1
+	github.com/cosmos/ibc-go/v8 v8.7.0
 	github.com/cosmos/rosetta v0.50.12
 	github.com/deckarep/golang-set/v2 v2.8.0
 	github.com/dydxprotocol/slinky v1.3.2
