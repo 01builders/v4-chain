@@ -6,7 +6,7 @@ toolchain go1.23.3
 
 require (
 	cosmossdk.io/api v0.9.2
-	cosmossdk.io/math v1.4.0
+	cosmossdk.io/math v1.5.3
 	github.com/Shopify/sarama v1.37.2
 	github.com/cometbft/cometbft v0.38.15
 	github.com/cometbft/cometbft-db v0.15.0 // indirect
