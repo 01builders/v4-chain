@@ -8,7 +8,7 @@ require (
 	cosmossdk.io/api v0.9.2
 	cosmossdk.io/math v1.5.3
 	github.com/Shopify/sarama v1.38.1
-	github.com/cometbft/cometbft v0.38.17
+	github.com/cometbft/cometbft v1.0.1
 	github.com/cometbft/cometbft-db v0.15.0 // indirect
 	github.com/cosmos/cosmos-proto v1.0.0-beta.5
 	github.com/cosmos/cosmos-sdk v0.53.0
