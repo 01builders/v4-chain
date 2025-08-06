@@ -55,7 +55,7 @@ require (
 	cosmossdk.io/x/upgrade v0.1.4
 	github.com/burdiyan/kafkautil v0.0.0-20190131162249-eaf83ed22d5b
 	github.com/cosmos/cosmos-db v1.1.3
-	github.com/cosmos/iavl v1.2.2
+	github.com/cosmos/iavl v1.3.5
 	github.com/cosmos/ibc-go/modules/capability v1.0.1
 	github.com/cosmos/ibc-go/v8 v8.5.1
 	github.com/cosmos/rosetta v0.50.12
