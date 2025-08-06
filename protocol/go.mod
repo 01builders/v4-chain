@@ -69,7 +69,7 @@ require (
 	github.com/ory/dockertest/v3 v3.12.0
 	github.com/pelletier/go-toml v1.9.5
 	github.com/rs/zerolog v1.34.0
-	github.com/shopspring/decimal v1.3.1
+	github.com/shopspring/decimal v1.4.0
 	github.com/spf13/viper v1.20.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	google.golang.org/genproto/googleapis/api v0.0.0-20250324211829-b45e905df463
