@@ -1,6 +1,6 @@
 # NB: This is a digest for a multi-arch manifest list, you will want to get this by running
-# `docker buildx imagetools inspect golang:1.23.1-alpine`
-ARG GOLANG_1_23_ALPINE_DIGEST="ac67716dd016429be8d4c2c53a248d7bcdf06d34127d3dc451bda6aa5a87bc06"
+# `docker buildx imagetools inspect golang:1.23.2-alpine`
+ARG GOLANG_1_23_ALPINE_DIGEST="9dd2625a1ff2859b8d8b01d8f7822c0f528942fe56cfe7a1e7c38d3b8d72d679"
 
 # This Dockerfile is a stateless build of the `dydxprotocold` binary as a Docker container.
 # It does not include any configuration, state, or genesis information.
