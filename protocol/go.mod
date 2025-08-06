@@ -52,7 +52,7 @@ require (
 	cosmossdk.io/x/evidence v0.2.0
 	cosmossdk.io/x/feegrant v0.1.0
 	cosmossdk.io/x/tx v1.1.0
-	cosmossdk.io/x/upgrade v0.1.4
+	cosmossdk.io/x/upgrade v0.2.0
 	github.com/burdiyan/kafkautil v0.0.0-20190131162249-eaf83ed22d5b
 	github.com/cosmos/cosmos-db v1.1.3
 	github.com/cosmos/iavl v1.3.5
