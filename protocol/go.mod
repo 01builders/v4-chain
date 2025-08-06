@@ -59,7 +59,7 @@ require (
 	github.com/cosmos/ibc-go/modules/capability v1.0.1
 	github.com/cosmos/ibc-go/v8 v8.5.1
 	github.com/cosmos/rosetta v0.50.12
-	github.com/deckarep/golang-set/v2 v2.6.0
+	github.com/deckarep/golang-set/v2 v2.8.0
 	github.com/dydxprotocol/slinky v1.3.2
 	github.com/ethereum/go-ethereum v1.14.11
 	github.com/go-kit/log v0.2.1
