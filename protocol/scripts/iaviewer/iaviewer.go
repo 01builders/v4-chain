@@ -3,15 +3,17 @@ package main
 
 import (
 	"bytes"
-	"cosmossdk.io/log"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	dbm "github.com/cosmos/cosmos-db"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
+
+	"cosmossdk.io/log"
+	dbm "github.com/cosmos/cosmos-db"
+	iavldb "github.com/cosmos/iavl/db"
 
 	"github.com/cosmos/iavl"
 	"github.com/spf13/cobra"
@@ -265,8 +267,9 @@ func ReadTree(db dbm.DB, version uint64, prefix []byte) (*iavl.MutableTree, erro
 	if len(prefix) != 0 {
 		db = dbm.NewPrefixDB(db, prefix)
 	}
-
-	tree := iavl.NewMutableTree(db, DefaultCacheSize, false, log.NewLogger(os.Stdout))
+	// Wrap the cosmos-db DB with the iavl/db wrapper to match the expected interface
+	wrapped := iavldb.NewWrapper(db)
+	tree := iavl.NewMutableTree(wrapped, DefaultCacheSize, false, log.NewLogger(os.Stdout))
 	ver, err := tree.LoadVersion(int64(version))
 	fmt.Printf("Tree %s version: %d\n", prefix, ver)
 	return tree, err
