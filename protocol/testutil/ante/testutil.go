@@ -23,8 +23,9 @@ import (
 
 	perpetualskeeper "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/keeper"
 
-	"github.com/golang/mock/gomock"
+	// Switched to Uber gomock to match mock expectations
 	"github.com/stretchr/testify/require"
+	gomock "go.uber.org/mock/gomock"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
