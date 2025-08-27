@@ -3,6 +3,8 @@
 package mocks
 
 import (
+	time "time"
+
 	proto "github.com/cosmos/gogoproto/proto"
 	mock "github.com/stretchr/testify/mock"
 
@@ -134,6 +136,16 @@ func (_m *TxBuilder) SetSignatures(signatures ...txsigning.SignatureV2) error {
 // SetTimeoutHeight provides a mock function with given fields: height
 func (_m *TxBuilder) SetTimeoutHeight(height uint64) {
 	_m.Called(height)
+}
+
+// SetTimeoutTimestamp provides a mock function with given fields: timestamp
+func (_m *TxBuilder) SetTimeoutTimestamp(timestamp time.Time) {
+	_m.Called(timestamp)
+}
+
+// SetUnordered provides a mock function with given fields: unordered
+func (_m *TxBuilder) SetUnordered(unordered bool) {
+	_m.Called(unordered)
 }
 
 // NewTxBuilder creates a new instance of TxBuilder. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
