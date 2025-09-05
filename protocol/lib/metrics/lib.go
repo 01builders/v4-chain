@@ -18,25 +18,27 @@ type TelemetryEmitWithLabelsFunc func(key string, val float32, labels ...gometri
 // IncrCounterWithLabels provides a wrapper functionality for emitting a counter
 // metric with global labels (if any) along with the provided labels.
 func IncrCounterWithLabels(key string, val float32, labels ...Label) {
-	telemetry.IncrCounterWithLabels([]string{key}, val, labels)
+	// Use go-metrics so unit tests using InmemSink can observe the events.
+	gometrics.IncrCounterWithLabels([]string{key}, val, labels)
 }
 
 // IncrCounter provides a wrapper functionality for emitting a counter
 // metric with global labels (if any).
 func IncrCounter(key string, val float32) {
-	telemetry.IncrCounterWithLabels([]string{key}, val, []gometrics.Label{})
+	gometrics.IncrCounterWithLabels([]string{key}, val, []gometrics.Label{})
 }
 
 // SetGaugeWithLabels provides a wrapper functionality for emitting a gauge
 // metric with global labels (if any) along with the provided labels.
 func SetGaugeWithLabels(key string, val float32, labels ...gometrics.Label) {
-	telemetry.SetGaugeWithLabels([]string{key}, val, labels)
+	// Use go-metrics so unit tests using InmemSink can observe the events.
+	gometrics.SetGaugeWithLabels([]string{key}, val, labels)
 }
 
 // SetGauge provides a wrapper functionality for emitting a gauge
 // metric with global labels (if any).
 func SetGauge(key string, val float32) {
-	telemetry.SetGaugeWithLabels([]string{key}, val, []gometrics.Label{})
+	gometrics.SetGaugeWithLabels([]string{key}, val, []gometrics.Label{})
 }
 
 // AddSampleWithLabels provides a wrapper functionality for emitting a sample
@@ -85,7 +87,8 @@ func ModuleMeasureSinceWithLabels(
 ) {
 	gometrics.MeasureSinceWithLabels(
 		keys,
-		start.UTC(),
+		// Preserve the monotonic clock component to avoid zero-duration samples on some platforms.
+		start,
 		append(
 			[]gometrics.Label{telemetry.NewLabel(telemetry.MetricLabelNameModule, module)},
 			labels...,

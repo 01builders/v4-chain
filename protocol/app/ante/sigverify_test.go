@@ -23,8 +23,8 @@ import (
 	accountplustypes "github.com/dydxprotocol/v4-chain/protocol/x/accountplus/types"
 	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
 	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
+	gomock "go.uber.org/mock/gomock"
 )
 
 func TestSigVerification(t *testing.T) {

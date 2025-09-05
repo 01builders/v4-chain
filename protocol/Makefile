@@ -10,6 +10,11 @@ export COMMIT=$(shell git rev-parse HEAD)
 
 export GO111MODULE = on
 
+# Force Go toolchain to a 1.23.x version to avoid incompatibilities (e.g., sonic) when developers have newer Go locally.
+# You can override on the command line: `GOTOOLCHAIN=auto make install` or `GOTOOLCHAIN=go1.24.5 make install`.
+GOTOOLCHAIN ?= go1.23.5
+export GOTOOLCHAIN
+
 # process build tags
 build_tags = netgo
 

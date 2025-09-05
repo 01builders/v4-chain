@@ -12,7 +12,7 @@ import (
 
 // IncrCountMetricWithLabels increases a count metric from a module with the provided labels by a count of 1.
 func IncrCountMetricWithLabels(module string, metric string, labels ...gometrics.Label) {
-	telemetry.IncrCounterWithLabels(
+	gometrics.IncrCounterWithLabels(
 		[]string{module, metric, Count},
 		1,
 		labels,

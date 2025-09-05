@@ -179,7 +179,7 @@ func (am AppModule) PreBlock(ctx context.Context) (appmodule.ResponsePreBlock, e
 
 // BeginBlock executes all ABCI BeginBlock logic respective to the clob module.
 func (am AppModule) Precommit(ctx context.Context) error {
-	defer telemetry.ModuleMeasureSince(am.Name(), time.Now(), telemetry.MetricKeyPrecommiter)
+	defer telemetry.ModuleMeasureSince(am.Name(), time.Now(), metrics.Precommit)
 	Precommit(
 		lib.UnwrapSDKContext(ctx, types.ModuleName),
 		*am.keeper,
@@ -210,7 +210,7 @@ func (am AppModule) EndBlock(ctx context.Context) error {
 
 // PrepareCheckState executes all ABCI PrepareCheckState logic respective to the clob module.
 func (am AppModule) PrepareCheckState(ctx context.Context) error {
-	defer telemetry.ModuleMeasureSince(am.Name(), time.Now(), telemetry.MetricKeyPrepareCheckStater)
+	defer telemetry.ModuleMeasureSince(am.Name(), time.Now(), metrics.PrepareCheckState)
 	PrepareCheckState(
 		lib.UnwrapSDKContext(ctx, types.ModuleName),
 		am.keeper,

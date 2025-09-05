@@ -25,7 +25,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/codec/address"
-	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	runtimeservices "github.com/cosmos/cosmos-sdk/runtime/services"
 	"github.com/cosmos/cosmos-sdk/server"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
@@ -252,18 +251,12 @@ func autoCliOpts(tempApp *dydxapp.App, initClientCtx client.Context) autocli.App
 		}
 	}
 
-	cliKR, err := keyring.NewAutoCLIKeyring(initClientCtx.Keyring)
-	if err != nil {
-		panic(err)
-	}
-
 	return autocli.AppOptions{
 		Modules:               modules,
 		ModuleOptions:         runtimeservices.ExtractAutoCLIOptions(tempApp.ModuleManager.Modules),
 		AddressCodec:          authcodec.NewBech32Codec(sdktypes.GetConfig().GetBech32AccountAddrPrefix()),
 		ValidatorAddressCodec: authcodec.NewBech32Codec(sdktypes.GetConfig().GetBech32ValidatorAddrPrefix()),
 		ConsensusAddressCodec: authcodec.NewBech32Codec(sdktypes.GetConfig().GetBech32ConsensusAddrPrefix()),
-		Keyring:               cliKR,
 		ClientCtx:             initClientCtx,
 	}
 }

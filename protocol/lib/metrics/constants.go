@@ -58,6 +58,7 @@ const (
 	OtherTxs             = "other_txs"
 	RemoveDisallowMsgs   = "remove_disallow_msgs"
 	PreBlocker           = "pre_blocker"
+	Precommit            = "precommit"
 	PrepareProposalTxs   = "prepare_proposal_txs"
 	PrepareCheckState    = "prepare_check_state"
 	PricesTx             = "prices_tx"
