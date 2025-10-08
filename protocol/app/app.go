@@ -442,6 +442,9 @@ func New(
 	}
 
 	bApp := baseapp.NewBaseApp(appconstants.AppName, logger, db, txConfig.TxDecoder(), baseAppOptions...)
+	logger.Info("DEBUG store type",
+		"cmsType", fmt.Sprintf("%T", bApp.CommitMultiStore()),
+	)
 	bApp.SetCommitMultiStoreTracer(traceStore)
 	bApp.SetVersion(version.Version)
 	bApp.SetInterfaceRegistry(interfaceRegistry)
