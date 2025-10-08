@@ -418,12 +418,12 @@ func New(
 	// Conditionally enable MemIAVL
 	cacheSize := cast.ToInt(appOpts.Get(memiavlstore.FlagCacheSize))
 	homePath := cast.ToString(appOpts.Get(cosmosflags.FlagHome))
-	//if cast.ToBool(appOpts.Get(memiavlstore.FlagMemIAVL)) {
-	logger.Info("********************MemIAVL enabled *************************", "cacheSize", cacheSize)
-	baseAppOptions = memiavlstore.SetupMemIAVL(logger, homePath, appOpts, false, false, cacheSize, baseAppOptions)
-	//} else {
-	//logger.Info("****************** MemIAVL disabled; using standard IAVL")
-	//}
+	if cast.ToBool(appOpts.Get(memiavlstore.FlagMemIAVL)) {
+		logger.Info("********************MemIAVL enabled *************************", "cacheSize", cacheSize)
+		baseAppOptions = memiavlstore.SetupMemIAVL(logger, homePath, appOpts, false, false, cacheSize, baseAppOptions)
+	} else {
+		logger.Info("****************** MemIAVL disabled; using standard IAVL")
+	}
 
 	// Enable optimistic block execution.
 	if appFlags.OptimisticExecutionEnabled {
