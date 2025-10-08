@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math/big"
@@ -91,6 +92,8 @@ import (
 	"github.com/cosmos/ibc-go/modules/capability"
 	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
 	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
+	memiavlstore "github.com/crypto-org-chain/cronos/store"
+	memiavlrootmulti "github.com/crypto-org-chain/cronos/store/rootmulti"
 	antetypes "github.com/dydxprotocol/v4-chain/protocol/app/ante/types"
 	"github.com/gorilla/mux"
 	"github.com/rakyll/statik/fs"
@@ -412,6 +415,16 @@ func New(
 	interfaceRegistry := encodingConfig.InterfaceRegistry
 	txConfig := encodingConfig.TxConfig
 
+	// Conditionally enable MemIAVL
+	cacheSize := cast.ToInt(appOpts.Get(memiavlstore.FlagCacheSize))
+	homePath := cast.ToString(appOpts.Get(cosmosflags.FlagHome))
+	if cast.ToBool(appOpts.Get(memiavlstore.FlagMemIAVL)) {
+		logger.Info("********************MemIAVL enabled *************************", "cacheSize", cacheSize)
+		baseAppOptions = memiavlstore.SetupMemIAVL(logger, homePath, appOpts, false, false, cacheSize, baseAppOptions)
+	} else {
+		logger.Info("****************** MemIAVL disabled; using standard IAVL")
+	}
+
 	// Enable optimistic block execution.
 	if appFlags.OptimisticExecutionEnabled {
 		logger.Info("optimistic execution is enabled.")
@@ -620,7 +633,6 @@ func New(
 	for _, h := range cast.ToIntSlice(appOpts.Get(server.FlagUnsafeSkipUpgrades)) {
 		skipUpgradeHeights[int64(h)] = true
 	}
-	homePath := cast.ToString(appOpts.Get(cosmosflags.FlagHome))
 	// set the governance module account as the authority for conducting upgrades
 	app.UpgradeKeeper = upgradekeeper.NewKeeper(
 		skipUpgradeHeights,
@@ -2029,9 +2041,12 @@ func (app *App) setAnteHandler(txConfig client.TxConfig) {
 
 // Close invokes an ordered shutdown of routines.
 func (app *App) Close() error {
-	app.BaseApp.Close()
+	err := app.BaseApp.Close()
 	if app.oraclePrometheusServer != nil {
 		app.oraclePrometheusServer.Close()
+	}
+	if cms, ok := app.CommitMultiStore().(*memiavlrootmulti.Store); ok {
+		return errors.Join(err, cms.Close())
 	}
 	return app.closeOnce()
 }
