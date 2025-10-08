@@ -6,7 +6,6 @@ import (
 	sending "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
 
 	errorsmod "cosmossdk.io/errors"
-	"cosmossdk.io/store/cachemulti"
 	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -249,10 +248,20 @@ func (h *lockingAnteHandler) clobAnteHandle(ctx sdk.Context, tx sdk.Tx, simulate
 			return ctx, err
 		}
 
-		cacheMs = ctx.MultiStore().(cachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
+		lms, ok := ctx.MultiStore().(interface {
+			CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte) storetypes.CacheMultiStore
+		})
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "MultiStore does not support CacheMultiStoreWithLocking")
+		}
+		cacheMs = lms.CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
 			h.authStoreKey: signers,
 		})
-		defer cacheMs.(storetypes.LockingStore).Unlock()
+		ls, ok := cacheMs.(storetypes.LockingStore)
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "CacheMultiStore does not implement LockingStore")
+		}
+		defer ls.Unlock()
 		ctx = ctx.WithMultiStore(cacheMs)
 	}
 
@@ -407,10 +416,20 @@ func (h *lockingAnteHandler) otherMsgAnteHandle(ctx sdk.Context, tx sdk.Tx, simu
 			return ctx, err
 		}
 
-		cacheMs = ctx.MultiStore().(cachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
+		lms, ok := ctx.MultiStore().(interface {
+			CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte) storetypes.CacheMultiStore
+		})
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "MultiStore does not support CacheMultiStoreWithLocking")
+		}
+		cacheMs = lms.CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
 			h.authStoreKey: signers,
 		})
-		defer cacheMs.(storetypes.LockingStore).Unlock()
+		ls, ok := cacheMs.(storetypes.LockingStore)
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "CacheMultiStore does not implement LockingStore")
+		}
+		defer ls.Unlock()
 		ctx = ctx.WithMultiStore(cacheMs)
 
 		h.globalLock.Lock()
