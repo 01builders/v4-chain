@@ -8,6 +8,9 @@ import (
 	oracleconfig "github.com/dydxprotocol/slinky/oracle/config"
 	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
 	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+
+	// MemIAVL config
+	memiavlcfg "github.com/crypto-org-chain/cronos/store/config"
 )
 
 const (
@@ -26,6 +29,10 @@ const (
 // DydxAppConfig specifies dYdX app specific config.
 type DydxAppConfig struct {
 	serverconfig.Config
+
+	// MemIAVL section in app.toml: [memiavl]
+	MemIAVL memiavlcfg.MemIAVLConfig `mapstructure:"memiavl"`
+
 	Oracle oracleconfig.AppConfig `mapstructure:"oracle"`
 }
 
@@ -34,6 +41,7 @@ type DydxAppConfig struct {
 // initAppConfig helps to override default appConfig template and configs.
 // return "", nil if no custom configuration is required for the application.
 func initAppConfig() (string, *DydxAppConfig) {
+
 	// Optionally allow the chain developer to overwrite the SDK's default
 	// server config.
 	srvCfg := serverconfig.DefaultConfig()
@@ -54,6 +62,8 @@ func initAppConfig() (string, *DydxAppConfig) {
 
 	appConfig := DydxAppConfig{
 		Config: *srvCfg,
+		// Default MemIAVL config (disabled by default; enable via app.toml)
+		MemIAVL: memiavlcfg.DefaultMemIAVLConfig(),
 		Oracle: oracleconfig.AppConfig{
 			Enabled:        true,
 			OracleAddress:  "localhost:8080",
@@ -73,7 +83,10 @@ func initAppConfig() (string, *DydxAppConfig) {
 	// GRPC.
 	appConfig.GRPC.Address = "0.0.0.0:9090"
 
-	appTemplate := serverconfig.DefaultConfigTemplate + oracleconfig.DefaultConfigTemplate
+	// Include MemIAVL config template so it shows up in app.toml
+	appTemplate := serverconfig.DefaultConfigTemplate +
+		oracleconfig.DefaultConfigTemplate +
+		memiavlcfg.DefaultConfigTemplate
 
 	return appTemplate, &appConfig
 }
