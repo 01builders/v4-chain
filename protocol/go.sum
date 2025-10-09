@@ -645,8 +645,8 @@ gioui.org v0.0.0-20210308172011-57750fc8a0a6/go.mod h1:RSH6KIUZ0p2xy5zHDxgAM4zum
 git.sr.ht/~sbinet/gg v0.3.1/go.mod h1:KGYtlADtqsqANL9ueOFkWymvzUvLMQllU5Ixo+8v3pc=
 github.com/01builders/dydx-cometbft v0.38.19-dydx h1:sfySORcrk6FIZ6y0l5ob5o9EcyWkE6K0jAZv9aqEnLY=
 github.com/01builders/dydx-cometbft v0.38.19-dydx/go.mod h1:IcJVLogjmvbfWl2bFWJ0gwl8Rv5kgfg4/N+vUA9HARs=
-github.com/01builders/dydx-cosmos-sdk v0.50.5-dydx-memiavl2 h1:l4nmk52DE55Ff5tD3oVBM9WFRgzUkxu7rUnFSr5AJIs=
-github.com/01builders/dydx-cosmos-sdk v0.50.5-dydx-memiavl2/go.mod h1:RFE4a5qI7zc42tja8BGBZ3HNSosygF9WWyjLcyr2bFg=
+github.com/01builders/dydx-cosmos-sdk v0.50.5-dydx-memiavl3 h1:VC3kuGtK0BWDZz6MdzbAMe7qg3npzRZIwQwfi5UJYbk=
+github.com/01builders/dydx-cosmos-sdk v0.50.5-dydx-memiavl3/go.mod h1:4hp2dWoiVmg2BOXWhc7+a76nTGdui6gnnz2zE+Hly1k=
 github.com/01builders/dydx-cosmos-sdk/store v0.5.6-dydx h1:7zpjRUXs6m4TerknjJB4D7HVsJh8XQO3gTObXAXu6D8=
 github.com/01builders/dydx-cosmos-sdk/store v0.5.6-dydx/go.mod h1:ZW4eIE98wivInyQyhxU2nHqEielc/iZAcr41qNyWSrw=
 github.com/01builders/dydx-cronos/store v0.0.5-dydx2 h1:xGn3Vw3aectKOKCIpR+Gv78HL0vj3ad0PgWZjaIp+WA=
