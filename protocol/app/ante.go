@@ -6,7 +6,6 @@ import (
 	sending "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
 
 	errorsmod "cosmossdk.io/errors"
-	"cosmossdk.io/store/cachemulti"
 	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -14,6 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 
+	memiavlcachemulti "github.com/crypto-org-chain/cronos/store/cachemulti"
 	customante "github.com/dydxprotocol/v4-chain/protocol/app/ante"
 	"github.com/dydxprotocol/v4-chain/protocol/lib"
 	libante "github.com/dydxprotocol/v4-chain/protocol/lib/ante"
@@ -249,7 +249,7 @@ func (h *lockingAnteHandler) clobAnteHandle(ctx sdk.Context, tx sdk.Tx, simulate
 			return ctx, err
 		}
 
-		cacheMs = ctx.MultiStore().(cachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
+		cacheMs = ctx.MultiStore().(memiavlcachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
 			h.authStoreKey: signers,
 		})
 		defer cacheMs.(storetypes.LockingStore).Unlock()
@@ -407,7 +407,7 @@ func (h *lockingAnteHandler) otherMsgAnteHandle(ctx sdk.Context, tx sdk.Tx, simu
 			return ctx, err
 		}
 
-		cacheMs = ctx.MultiStore().(cachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
+		cacheMs = ctx.MultiStore().(memiavlcachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
 			h.authStoreKey: signers,
 		})
 		defer cacheMs.(storetypes.LockingStore).Unlock()
