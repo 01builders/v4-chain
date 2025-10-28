@@ -240,6 +240,12 @@ func initRootCmd(
 	)
 
 	rootCmd.AddCommand(rosettaCmd.RosettaCommand(tempApp.InterfaceRegistry(), tempApp.AppCodec()))
+
+	// versiondb changeset commands
+	changeSetCmd := ChangeSetCmd()
+	if changeSetCmd != nil {
+		rootCmd.AddCommand(changeSetCmd)
+	}
 }
 
 // autoCliOpts returns options based upon the modules in the dYdX v4 app.
