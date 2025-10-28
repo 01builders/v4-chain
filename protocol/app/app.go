@@ -1531,13 +1531,15 @@ func New(
 	// wire up the versiondb's `StreamingService` and `MultiStore`.
 	// we don't support other streaming service, versiondb will override the streaming manager.
 	if cast.ToBool(appOpts.Get("versiondb.enable")) {
+		logger.Info("********************VersionDB enabled *************************")
 		qms, err := app.setupVersionDB(homePath, keys, tkeys, memKeys)
 		if err != nil {
 			panic(err)
 		}
 		app.qms = qms.(RootMultiStore)
+	} else {
+		logger.Info("********************VersionDB NOT enabled *************************")
 	}
-
 	// initialize BaseApp
 	app.SetInitChainer(app.InitChainer)
 	app.setAnteHandler(encodingConfig.TxConfig)
