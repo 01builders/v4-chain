@@ -11,7 +11,7 @@ export COMMIT=$(shell git rev-parse HEAD)
 export GO111MODULE = on
 
 # process build tags
-build_tags = netgo
+build_tags = netgo rocksdb
 
 ifeq ($(LEDGER_ENABLED),true)
   ifeq ($(OS),Windows_NT)

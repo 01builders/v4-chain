@@ -60,6 +60,7 @@ require (
 	github.com/cosmos/ibc-go/modules/capability v1.0.1
 	github.com/cosmos/ibc-go/v8 v8.5.1
 	github.com/cosmos/rosetta v0.50.3
+	github.com/crypto-org-chain/cronos/versiondb v0.0.0-00010101000000-000000000000
 	github.com/deckarep/golang-set/v2 v2.6.0
 	github.com/dydxprotocol/slinky v1.3.2
 	github.com/ethereum/go-ethereum v1.14.11
@@ -67,6 +68,7 @@ require (
 	github.com/gorilla/websocket v1.5.3
 	github.com/hashicorp/go-metrics v0.5.3
 	github.com/hashicorp/go-version v1.7.0
+	github.com/linxGnu/grocksdb v1.9.3
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/pelletier/go-toml v1.9.5
 	github.com/rs/zerolog v1.33.0
@@ -304,7 +306,6 @@ require (
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/leonklingele/grouper v1.1.2 // indirect
 	github.com/lib/pq v1.10.9 // indirect
-	github.com/linxGnu/grocksdb v1.9.3 // indirect
 	github.com/logrusorgru/aurora v2.0.3+incompatible // indirect
 	github.com/lovoo/goka v1.1.9 // indirect
 	github.com/macabu/inamedparam v0.1.3 // indirect
@@ -474,6 +475,7 @@ replace (
 	// memiavl refers to old packages so we need to replace them with the correct naming
 	github.com/crypto-org-chain/cronos/memiavl => github.com/crypto-org-chain/cronos/memiavl v0.0.5-0.20241028093154-0f94930c27ce
 	github.com/crypto-org-chain/cronos/store => github.com/01builders/dydx-cronos/store v0.0.5-dydx3
+	github.com/crypto-org-chain/cronos/versiondb => github.com/crypto-org-chain/cronos/versiondb v0.0.0-20250829061541-4b7f16f91ba0
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.38.15
 )
 

@@ -268,6 +268,13 @@ func init() {
 	sdk.DefaultPowerReduction = lib.PowerReduction
 }
 
+type RootMultiStore interface {
+	storetypes.MultiStore
+
+	// LatestVersion returns the latest version in the store
+	LatestVersion() int64
+}
+
 // App extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
@@ -376,6 +383,8 @@ type App struct {
 	// Slinky
 	oraclePrometheusServer *promserver.PrometheusServer
 	oracleMetrics          servicemetrics.Metrics
+
+	qms RootMultiStore
 }
 
 // assertAppPreconditions assert invariants required for an application to start.
@@ -447,59 +456,7 @@ func New(
 	bApp.SetInterfaceRegistry(interfaceRegistry)
 	bApp.SetTxEncoder(txConfig.TxEncoder())
 
-	keys := storetypes.NewKVStoreKeys(
-		authtypes.StoreKey,
-		authzkeeper.StoreKey,
-		banktypes.StoreKey,
-		stakingtypes.StoreKey,
-		crisistypes.StoreKey,
-		distrtypes.StoreKey,
-		slashingtypes.StoreKey,
-		govtypes.StoreKey,
-		paramstypes.StoreKey,
-		consensusparamtypes.StoreKey,
-		upgradetypes.StoreKey,
-		feegrant.StoreKey,
-		ibcexported.StoreKey,
-		ibctransfertypes.StoreKey,
-		ratelimitmoduletypes.StoreKey,
-		icacontrollertypes.StoreKey,
-		icahosttypes.StoreKey,
-		evidencetypes.StoreKey,
-		capabilitytypes.StoreKey,
-		pricesmoduletypes.StoreKey,
-		assetsmoduletypes.StoreKey,
-		blocktimemoduletypes.StoreKey,
-		bridgemoduletypes.StoreKey,
-		feetiersmoduletypes.StoreKey,
-		listingmoduletypes.StoreKey,
-		perpetualsmoduletypes.StoreKey,
-		satypes.StoreKey,
-		statsmoduletypes.StoreKey,
-		vestmoduletypes.StoreKey,
-		rewardsmoduletypes.StoreKey,
-		clobmoduletypes.StoreKey,
-		sendingmoduletypes.StoreKey,
-		delaymsgmoduletypes.StoreKey,
-		epochsmoduletypes.StoreKey,
-		govplusmoduletypes.StoreKey,
-		vaultmoduletypes.StoreKey,
-		revsharemoduletypes.StoreKey,
-		accountplusmoduletypes.StoreKey,
-		marketmapmoduletypes.StoreKey,
-		affiliatesmoduletypes.StoreKey,
-	)
-	keys[authtypes.StoreKey] = keys[authtypes.StoreKey].WithLocking()
-	tkeys := storetypes.NewTransientStoreKeys(
-		paramstypes.TStoreKey,
-		clobmoduletypes.TransientStoreKey,
-		statsmoduletypes.TransientStoreKey,
-		rewardsmoduletypes.TransientStoreKey,
-		indexer_manager.TransientStoreKey,
-		streaming.StreamingManagerTransientStoreKey,
-		perpetualsmoduletypes.TransientStoreKey,
-	)
-	memKeys := storetypes.NewMemoryStoreKeys(capabilitytypes.MemStoreKey, clobmoduletypes.MemStoreKey)
+	keys, memKeys, tkeys := StoreKeys()
 
 	app := &App{
 		BaseApp:           bApp,
@@ -1574,6 +1531,19 @@ func New(
 	app.MountTransientStores(tkeys)
 	app.MountMemoryStores(memKeys)
 
+	// wire up the versiondb's `StreamingService` and `MultiStore`.
+	// we don't support other streaming service, versiondb will override the streaming manager.
+	if cast.ToBool(appOpts.Get("versiondb.enable")) {
+		logger.Info("******************** VersionDB enabled *************************")
+		qms, err := app.setupVersionDB(homePath, keys, tkeys, memKeys)
+		if err != nil {
+			panic(err)
+		}
+		app.qms = qms.(RootMultiStore)
+	} else {
+		logger.Info("****************** VersionDB disabled; using standard store")
+	}
+
 	// initialize BaseApp
 	app.SetInitChainer(app.InitChainer)
 	app.setAnteHandler(encodingConfig.TxConfig)
@@ -1612,6 +1582,13 @@ func New(
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
 			tmos.Exit(err.Error())
+		}
+		if app.qms != nil {
+			v1 := app.qms.LatestVersion()
+			v2 := app.LastBlockHeight()
+			if v1 > 0 && v1 != v2 {
+				tmos.Exit(fmt.Sprintf("versiondb latest version %d don't match iavl latest version %d", v1, v2))
+			}
 		}
 	}
 	app.initializeRateLimiters()
@@ -2167,4 +2144,66 @@ func getFullNodeStreamingManagerFromOptions(
 		return manager, wsServer
 	}
 	return streaming.NewNoopGrpcStreamingManager(), wsServer
+}
+
+func StoreKeys() (
+	map[string]*storetypes.KVStoreKey,
+	map[string]*storetypes.MemoryStoreKey,
+	map[string]*storetypes.TransientStoreKey,
+) {
+	keys := storetypes.NewKVStoreKeys(
+		authtypes.StoreKey,
+		authzkeeper.StoreKey,
+		banktypes.StoreKey,
+		stakingtypes.StoreKey,
+		crisistypes.StoreKey,
+		distrtypes.StoreKey,
+		slashingtypes.StoreKey,
+		govtypes.StoreKey,
+		paramstypes.StoreKey,
+		consensusparamtypes.StoreKey,
+		upgradetypes.StoreKey,
+		feegrant.StoreKey,
+		ibcexported.StoreKey,
+		ibctransfertypes.StoreKey,
+		ratelimitmoduletypes.StoreKey,
+		icacontrollertypes.StoreKey,
+		icahosttypes.StoreKey,
+		evidencetypes.StoreKey,
+		capabilitytypes.StoreKey,
+		pricesmoduletypes.StoreKey,
+		assetsmoduletypes.StoreKey,
+		blocktimemoduletypes.StoreKey,
+		bridgemoduletypes.StoreKey,
+		feetiersmoduletypes.StoreKey,
+		listingmoduletypes.StoreKey,
+		perpetualsmoduletypes.StoreKey,
+		satypes.StoreKey,
+		statsmoduletypes.StoreKey,
+		vestmoduletypes.StoreKey,
+		rewardsmoduletypes.StoreKey,
+		clobmoduletypes.StoreKey,
+		sendingmoduletypes.StoreKey,
+		delaymsgmoduletypes.StoreKey,
+		epochsmoduletypes.StoreKey,
+		govplusmoduletypes.StoreKey,
+		vaultmoduletypes.StoreKey,
+		revsharemoduletypes.StoreKey,
+		accountplusmoduletypes.StoreKey,
+		marketmapmoduletypes.StoreKey,
+		affiliatesmoduletypes.StoreKey,
+	)
+	keys[authtypes.StoreKey] = keys[authtypes.StoreKey].WithLocking()
+	tkeys := storetypes.NewTransientStoreKeys(
+		paramstypes.TStoreKey,
+		clobmoduletypes.TransientStoreKey,
+		statsmoduletypes.TransientStoreKey,
+		rewardsmoduletypes.TransientStoreKey,
+		indexer_manager.TransientStoreKey,
+		streaming.StreamingManagerTransientStoreKey,
+		perpetualsmoduletypes.TransientStoreKey,
+	)
+	memKeys := storetypes.NewMemoryStoreKeys(capabilitytypes.MemStoreKey, clobmoduletypes.MemStoreKey)
+
+	return keys, memKeys, tkeys
 }
