@@ -1,9 +1,8 @@
-export VERSION := $(shell echo $(shell git describe --tags --always --match "protocol/v*") | sed 's/^protocol\/v//')
-BUILDDIR ?= $(CURDIR)/build
 DOCKER := $(shell which docker)
 HTTPS_GIT := https://github.com/dydxprotocol/v4.git
 GO_VERSION := $(shell cat go.mod | grep -E 'go [0-9].[0-9]+' | cut -d ' ' -f 2)
 PROJECT_NAME := $(shell git remote get-url origin | xargs basename -s .git)
+BUILDDIR ?= build
 CGO_ENABLED=1
 export GIT_COMMIT_HASH=$(shell git rev-parse --short HEAD)
 export COMMIT=$(shell git rev-parse HEAD)
@@ -11,7 +10,7 @@ export COMMIT=$(shell git rev-parse HEAD)
 export GO111MODULE = on
 
 # process build tags
-build_tags = netgo
+build_tags = netgo rocksdb
 
 ifeq ($(LEDGER_ENABLED),true)
   ifeq ($(OS),Windows_NT)
@@ -195,9 +194,9 @@ go.sum: go.mod
 distclean: clean tools-clean
 clean:
 	rm -rf \
-    $(BUILDDIR)/ \
-    artifacts/ \
-    tmp-swagger-gen/ \
+    $(BUILDDIR) \
+    artifacts \
+    tmp-swagger-gen \
 	swagger-proto
 
 .PHONY: distclean clean
@@ -373,7 +372,7 @@ localnet-compose-upd:
 	@docker compose -f docker-compose.yml -f docker-compose.local.yml up --force-recreate -d $(ARGS)
 
 build-e2etest-image:
-	@echo "Build e2e test image at commit ${GIT_COMMIT_HASH}"
+	@echo "uild e2e test image at commit ${GIT_COMMIT_HASH}"
 	@docker build . -t local:e2etest-dydxprotocol -f testing/e2etest-local/Dockerfile --no-cache
 
 localnet-start: localnet-init localnet-compose-up
