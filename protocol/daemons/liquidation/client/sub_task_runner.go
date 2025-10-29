@@ -164,6 +164,24 @@ func (c *Client) FetchApplicationStateAtBlockHeight(
 			blockHeight,
 		)
 	}
+	// Log visibility into perpetuals returned.
+	if len(perpetuals) == 0 {
+		c.logger.Info(
+			"No perpetuals returned from chain",
+			"blockHeight", blockHeight,
+		)
+	} else {
+		perpIDs := make([]uint32, 0, len(perpetuals))
+		for _, p := range perpetuals {
+			perpIDs = append(perpIDs, p.Params.Id)
+		}
+		c.logger.Info(
+			"Fetched perpetuals",
+			"blockHeight", blockHeight,
+			"count", len(perpetuals),
+			"ids", perpIDs,
+		)
+	}
 
 	// Liquidity tiers
 	liquidityTiers, err := c.GetAllLiquidityTiers(queryCtx, liqFlags.QueryPageLimit)
