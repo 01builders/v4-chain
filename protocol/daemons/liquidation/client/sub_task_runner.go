@@ -178,6 +178,26 @@ func (c *Client) FetchApplicationStateAtBlockHeight(
 		return l.Id
 	})
 
+	// Log basic visibility into the tiers map: count and IDs present.
+	// Avoid dumping full structs to keep logs readable.
+	if len(liquidityTiersMap) == 0 {
+		c.logger.Info(
+			"No liquidity tiers returned from chain",
+			"blockHeight", blockHeight,
+		)
+	} else {
+		tierIDs := make([]uint32, 0, len(liquidityTiersMap))
+		for id := range liquidityTiersMap {
+			tierIDs = append(tierIDs, id)
+		}
+		c.logger.Info(
+			"Fetched liquidity tiers",
+			"blockHeight", blockHeight,
+			"count", len(liquidityTiersMap),
+			"ids", tierIDs,
+		)
+	}
+
 	perpInfos = make(perptypes.PerpInfos, len(perpetuals))
 	for _, perp := range perpetuals {
 		price, ok := marketPricesMap[perp.Params.MarketId]
@@ -188,14 +208,36 @@ func (c *Client) FetchApplicationStateAtBlockHeight(
 				perp.Params.MarketId,
 			)
 		}
+		// Log the lookup before resolving to help diagnose missing tiers.
+		c.logger.Info(
+			"Resolving liquidity tier for perpetual",
+			"perpId", perp.Params.Id,
+			"marketId", perp.Params.MarketId,
+			"liquidityTierId", perp.Params.LiquidityTier,
+		)
+
 		liquidityTier, ok := liquidityTiersMap[perp.Params.LiquidityTier]
 		if !ok {
+			// Emit a clear log before surfacing the error so operators can see which perp/tier failed.
+			c.logger.Error(
+				"Liquidity tier referenced by perpetual not found",
+				"perpId", perp.Params.Id,
+				"missingLiquidityTierId", perp.Params.LiquidityTier,
+				"blockHeight", blockHeight,
+			)
 			return nil, nil, errorsmod.Wrapf(
 				perptypes.ErrLiquidityTierDoesNotExist,
 				"%d",
 				perp.Params.LiquidityTier,
 			)
 		}
+		// Successful resolution of tier for this perpetual.
+		c.logger.Info(
+			"Perpetual liquidity tier resolved",
+			"perpId", perp.Params.Id,
+			"marketId", perp.Params.MarketId,
+			"resolvedTierId", liquidityTier.Id,
+		)
 		perpInfos[perp.Params.Id] = perptypes.PerpInfo{
 			Perpetual:     perp,
 			Price:         price,
