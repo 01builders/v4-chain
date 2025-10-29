@@ -151,6 +151,31 @@ func (c *Client) FetchApplicationStateAtBlockHeight(
 			blockHeight,
 		)
 	}
+	// PIERRICK: Log visibility into fetched market prices before building the map.
+	if len(marketPrices) == 0 {
+		c.logger.Info(
+			"PIERRICK: MarketPrices slice is empty",
+			"blockHeight", blockHeight,
+		)
+	} else {
+		ids := make([]uint32, 0, len(marketPrices))
+		entries := make([]map[string]interface{}, 0, len(marketPrices))
+		for _, m := range marketPrices {
+			ids = append(ids, m.Id)
+			entries = append(entries, map[string]interface{}{
+				"id":       m.Id,
+				"price":    m.Price,
+				"exponent": m.Exponent,
+			})
+		}
+		c.logger.Info(
+			"PIERRICK: Fetched market prices",
+			"blockHeight", blockHeight,
+			"count", len(marketPrices),
+			"ids", ids,
+			"entries", entries,
+		)
+	}
 	marketPricesMap := lib.UniqueSliceToMap(marketPrices, func(m pricestypes.MarketPrice) uint32 {
 		return m.Id
 	})
