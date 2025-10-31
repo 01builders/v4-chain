@@ -13,7 +13,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 
-	memiavlcachemulti "github.com/crypto-org-chain/cronos/store/cachemulti"
 	customante "github.com/dydxprotocol/v4-chain/protocol/app/ante"
 	"github.com/dydxprotocol/v4-chain/protocol/lib"
 	libante "github.com/dydxprotocol/v4-chain/protocol/lib/ante"
@@ -249,10 +248,20 @@ func (h *lockingAnteHandler) clobAnteHandle(ctx sdk.Context, tx sdk.Tx, simulate
 			return ctx, err
 		}
 
-		cacheMs = ctx.MultiStore().(memiavlcachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
+		lms, ok := ctx.MultiStore().(interface {
+			CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte) storetypes.CacheMultiStore
+		})
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "MultiStore does not support CacheMultiStoreWithLocking")
+		}
+		cacheMs = lms.CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
 			h.authStoreKey: signers,
 		})
-		defer cacheMs.(storetypes.LockingStore).Unlock()
+		ls, ok := cacheMs.(storetypes.LockingStore)
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "CacheMultiStore does not implement LockingStore")
+		}
+		defer ls.Unlock()
 		ctx = ctx.WithMultiStore(cacheMs)
 	}
 
@@ -407,10 +416,20 @@ func (h *lockingAnteHandler) otherMsgAnteHandle(ctx sdk.Context, tx sdk.Tx, simu
 			return ctx, err
 		}
 
-		cacheMs = ctx.MultiStore().(memiavlcachemulti.Store).CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
+		lms, ok := ctx.MultiStore().(interface {
+			CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte) storetypes.CacheMultiStore
+		})
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "MultiStore does not support CacheMultiStoreWithLocking")
+		}
+		cacheMs = lms.CacheMultiStoreWithLocking(map[storetypes.StoreKey][][]byte{
 			h.authStoreKey: signers,
 		})
-		defer cacheMs.(storetypes.LockingStore).Unlock()
+		ls, ok := cacheMs.(storetypes.LockingStore)
+		if !ok {
+			return ctx, errorsmod.Wrap(sdkerrors.ErrLogic, "CacheMultiStore does not implement LockingStore")
+		}
+		defer ls.Unlock()
 		ctx = ctx.WithMultiStore(cacheMs)
 
 		h.globalLock.Lock()
