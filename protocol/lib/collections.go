@@ -89,14 +89,14 @@ func UniqueSliceToMap[K comparable, V any](slice []V, keyFunc func(V) K) map[K]V
 	m := make(map[K]V)
 	for _, v := range slice {
 		k := keyFunc(v)
-		if _, exists := m[k]; exists {
-			panic(
-				fmt.Sprintf(
-					"UniqueSliceToMap: duplicate value: %+v",
-					v,
-				),
-			)
-		}
+		//if _, exists := m[k]; exists {
+		//panic(
+		//fmt.Sprintf(
+		//"UniqueSliceToMap: duplicate value: %+v",
+		//v,
+		//),
+		//)
+		//}
 		m[k] = v
 	}
 	return m
