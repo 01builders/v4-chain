@@ -39,6 +39,7 @@ func (k Keeper) AllMarketPrices(
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
+	k.Logger(ctx).Info("PIERRICK,MarketPrices", "marketPrices:", marketPrices)
 	return &types.QueryAllMarketPricesResponse{MarketPrices: marketPrices, Pagination: pageRes}, nil
 }
 
