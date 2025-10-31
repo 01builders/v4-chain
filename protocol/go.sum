@@ -651,8 +651,8 @@ github.com/01builders/dydx-cosmos-sdk/store v0.5.6-dydx h1:7zpjRUXs6m4TerknjJB4D
 github.com/01builders/dydx-cosmos-sdk/store v0.5.6-dydx/go.mod h1:ZW4eIE98wivInyQyhxU2nHqEielc/iZAcr41qNyWSrw=
 github.com/01builders/dydx-cronos/store v0.0.5-dydx3 h1:dFrDfQ4IoVzmPDwN8pK4x5xmHzOno1ffMniGpEBg4Mc=
 github.com/01builders/dydx-cronos/store v0.0.5-dydx3/go.mod h1:II1a1DGyN3uD1hPS6dUFxI6RnCZz0ZW2v7GMgfjTp6o=
-github.com/01builders/dydx-cronos/versiondb v0.0.0-20251030210328-d5afd6b8a210 h1:jFkImc0YlAReQdM+Dl2lEnaHoVsBKLcIvENFTBnq2c8=
-github.com/01builders/dydx-cronos/versiondb v0.0.0-20251030210328-d5afd6b8a210/go.mod h1:Y1uyFhZn/8jZkZfr3W/alzrO3DfcfWPuA3UwCM0Ah0g=
+github.com/01builders/dydx-cronos/versiondb v0.0.0-20251031083847-5fd1f6a18b62 h1:jZMn05nCqut2r4yLeRa5E3/ozwQ2wAtHee4AYVD30nk=
+github.com/01builders/dydx-cronos/versiondb v0.0.0-20251031083847-5fd1f6a18b62/go.mod h1:Y1uyFhZn/8jZkZfr3W/alzrO3DfcfWPuA3UwCM0Ah0g=
 github.com/4meepo/tagalign v1.3.4 h1:P51VcvBnf04YkHzjfclN6BbsopfJR5rxs1n+5zHt+w8=
 github.com/4meepo/tagalign v1.3.4/go.mod h1:M+pnkHH2vG8+qhE5bVc/zeP7HS/j910Fwa9TUSyZVI0=
 github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 h1:/vQbFIOMbk2FiG/kXiLl8BRyzTWDw7gX/Hz7Dd5eDMs=
