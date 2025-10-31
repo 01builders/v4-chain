@@ -217,6 +217,29 @@ func (c *Client) FetchApplicationStateAtBlockHeight(
 			blockHeight,
 		)
 	}
+	// PIERRICK: Log visibility into fetched liquidity tiers before building the map.
+	if len(liquidityTiers) == 0 {
+		c.logger.Info(
+			"PIERRICK: LiquidityTiers slice is empty",
+			"blockHeight", blockHeight,
+		)
+	} else {
+		ids := make([]uint32, 0, len(liquidityTiers))
+		entries := make([]map[string]interface{}, 0, len(liquidityTiers))
+		for _, lt := range liquidityTiers {
+			ids = append(ids, lt.Id)
+			entries = append(entries, map[string]interface{}{
+				"id": lt.Id,
+			})
+		}
+		c.logger.Info(
+			"PIERRICK: Fetched liquidity tiers",
+			"blockHeight", blockHeight,
+			"count", len(liquidityTiers),
+			"ids", ids,
+			"entries", entries,
+		)
+	}
 	liquidityTiersMap := lib.UniqueSliceToMap(liquidityTiers, func(l perptypes.LiquidityTier) uint32 {
 		return l.Id
 	})
