@@ -475,7 +475,7 @@ replace (
 	// memiavl refers to old packages so we need to replace them with the correct naming
 	github.com/crypto-org-chain/cronos/memiavl => github.com/crypto-org-chain/cronos/memiavl v0.0.5-0.20241028093154-0f94930c27ce
 	github.com/crypto-org-chain/cronos/store => github.com/01builders/dydx-cronos/store v0.0.5-dydx3
-	github.com/crypto-org-chain/cronos/versiondb => github.com/01builders/dydx-cronos/versiondb v0.0.0-20251030210328-d5afd6b8a210
+	github.com/crypto-org-chain/cronos/versiondb => github.com/01builders/dydx-cronos/versiondb v0.0.0-20251031083847-5fd1f6a18b62
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.38.15
 )
 
