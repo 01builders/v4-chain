@@ -649,6 +649,8 @@ github.com/01builders/dydx-cosmos-sdk/store v0.5.6-dydx h1:7zpjRUXs6m4TerknjJB4D
 github.com/01builders/dydx-cosmos-sdk/store v0.5.6-dydx/go.mod h1:ZW4eIE98wivInyQyhxU2nHqEielc/iZAcr41qNyWSrw=
 github.com/01builders/dydx-cronos/store v0.0.5-dydx3 h1:dFrDfQ4IoVzmPDwN8pK4x5xmHzOno1ffMniGpEBg4Mc=
 github.com/01builders/dydx-cronos/store v0.0.5-dydx3/go.mod h1:II1a1DGyN3uD1hPS6dUFxI6RnCZz0ZW2v7GMgfjTp6o=
+github.com/01builders/dydx-cronos/versiondb v0.0.0-20251105153052-e07469b731bb h1:Gx3OKzvcX3dZg36VQp/WZDN7q28yZjTEhCVJi/Y8y9w=
+github.com/01builders/dydx-cronos/versiondb v0.0.0-20251105153052-e07469b731bb/go.mod h1:Y1uyFhZn/8jZkZfr3W/alzrO3DfcfWPuA3UwCM0Ah0g=
 github.com/4meepo/tagalign v1.3.4 h1:P51VcvBnf04YkHzjfclN6BbsopfJR5rxs1n+5zHt+w8=
 github.com/4meepo/tagalign v1.3.4/go.mod h1:M+pnkHH2vG8+qhE5bVc/zeP7HS/j910Fwa9TUSyZVI0=
 github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 h1:/vQbFIOMbk2FiG/kXiLl8BRyzTWDw7gX/Hz7Dd5eDMs=
@@ -926,8 +928,6 @@ github.com/creack/pty v1.1.18 h1:n56/Zwd5o6whRC5PMGretI4IdRLlmBXYNjScPaBgsbY=
 github.com/creack/pty v1.1.18/go.mod h1:MOBLtS5ELjhRRrroQr9kyvTxUAFNvYEK993ew/Vr4O4=
 github.com/crypto-org-chain/cronos/memiavl v0.0.5-0.20241028093154-0f94930c27ce h1:yRF9Zsk4fzVBhBQEjkA4oE+Q3Q/Kgaj/UX4gK+xwaAs=
 github.com/crypto-org-chain/cronos/memiavl v0.0.5-0.20241028093154-0f94930c27ce/go.mod h1:IyRvgFKOQPC/Qdx543PGl6WgeDOU+hWdv+xLz3stotc=
-github.com/crypto-org-chain/cronos/versiondb v0.0.0-20250829061541-4b7f16f91ba0 h1:z2r3n4SwXT/5iOORWYbLBBCnSmegluD9GnOO0QOQSbc=
-github.com/crypto-org-chain/cronos/versiondb v0.0.0-20250829061541-4b7f16f91ba0/go.mod h1:Y1uyFhZn/8jZkZfr3W/alzrO3DfcfWPuA3UwCM0Ah0g=
 github.com/curioswitch/go-reassign v0.2.0 h1:G9UZyOcpk/d7Gd6mqYgd8XYWFMw/znxwGDUstnC9DIo=
 github.com/curioswitch/go-reassign v0.2.0/go.mod h1:x6OpXuWvgfQaMGks2BZybTngWjT84hqJfKoO8Tt/Roc=
 github.com/daaku/go.zipexe v1.0.2 h1:Zg55YLYTr7M9wjKn8SY/WcpuuEi+kR2u4E8RhvpyXmk=
