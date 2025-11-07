@@ -51,6 +51,15 @@ func ProcessProposalHandler(
 			metrics.Latency,
 		)
 
+		// Entry log to confirm ProcessProposalHandler closure invocation.
+		// Includes current block height and number of tx bytes in proposal.
+		log.InfoLog(
+			ctx,
+			"PIERRICK: ProcessProposalHandler invoked",
+			"height", ctx.BlockHeight(),
+			"num_txs", len(req.Txs),
+		)
+
 		// Update the current block height and consensus round.
 		if ctx.BlockHeight() != currentBlockHeight {
 			currentBlockHeight = ctx.BlockHeight()
