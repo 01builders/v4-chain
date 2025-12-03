@@ -643,6 +643,8 @@ filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
 filippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=
 gioui.org v0.0.0-20210308172011-57750fc8a0a6/go.mod h1:RSH6KIUZ0p2xy5zHDxgAM4zumjgTw83q2ge/PI+yyw8=
 git.sr.ht/~sbinet/gg v0.3.1/go.mod h1:KGYtlADtqsqANL9ueOFkWymvzUvLMQllU5Ixo+8v3pc=
+github.com/01builders/dydx-cometbft v0.0.0-20251125154254-4bb87b5ef594 h1:nAdIGk2FyC+h9Lux0YhQmSaWMv7C7bpdrqR2EMmqkNE=
+github.com/01builders/dydx-cometbft v0.0.0-20251125154254-4bb87b5ef594/go.mod h1:IcJVLogjmvbfWl2bFWJ0gwl8Rv5kgfg4/N+vUA9HARs=
 github.com/01builders/dydx-cosmos-sdk v0.50.5-dydx-memiavl3 h1:VC3kuGtK0BWDZz6MdzbAMe7qg3npzRZIwQwfi5UJYbk=
 github.com/01builders/dydx-cosmos-sdk v0.50.5-dydx-memiavl3/go.mod h1:4hp2dWoiVmg2BOXWhc7+a76nTGdui6gnnz2zE+Hly1k=
 github.com/01builders/dydx-cosmos-sdk/store v0.5.6-dydx h1:7zpjRUXs6m4TerknjJB4D7HVsJh8XQO3gTObXAXu6D8=
@@ -970,8 +972,6 @@ github.com/dustin/go-humanize v1.0.1 h1:GzkhY7T5VNhEkwH0PVJgjz+fX1rhBrR7pRT3mDkp
 github.com/dustin/go-humanize v1.0.1/go.mod h1:Mu1zIs6XwVuF/gI1OepvI0qD18qycQx+mFykh5fBlto=
 github.com/dvsekhvalnov/jose2go v1.6.0 h1:Y9gnSnP4qEI0+/uQkHvFXeD2PLPJeXEL+ySMEA2EjTY=
 github.com/dvsekhvalnov/jose2go v1.6.0/go.mod h1:QsHjhyTlD/lAVqn/NSbVZmSCGeDehTB/mPZadG+mhXU=
-github.com/dydxprotocol/cometbft v0.38.6-0.20251021155510-74157e3aac09 h1:b0FQumkBGAMfPs9Q2tw9mR2lPg6fTC/egVzgILyojIA=
-github.com/dydxprotocol/cometbft v0.38.6-0.20251021155510-74157e3aac09/go.mod h1:IcJVLogjmvbfWl2bFWJ0gwl8Rv5kgfg4/N+vUA9HARs=
 github.com/dydxprotocol/ibc-go/v8 v8.0.0-rc.0.0.20250312180215-8733b3edf43a h1:aF1rORtUApr+N6dWsNiT/G9H2ysfjyj5DiVRU8CRDaU=
 github.com/dydxprotocol/ibc-go/v8 v8.0.0-rc.0.0.20250312180215-8733b3edf43a/go.mod h1:C6IiJom0F3cIQCD5fKwVPDrDK9j/xTu563AWuOmXois=
 github.com/dydxprotocol/slinky v1.3.2 h1:JSMKq37MDlei28ec4o6sB2RaihWPL1xQ8BoH9wGxg9w=
