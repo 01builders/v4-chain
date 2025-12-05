@@ -328,12 +328,6 @@ const GenesisState = `{
         }
       }
     },
-    "crisis": {
-      "constant_fee": {
-        "amount": "1000",
-        "denom": "adv4tnt"
-      }
-    },
     "delaymsg": {
       "delayed_messages": [
         {

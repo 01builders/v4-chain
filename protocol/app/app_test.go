@@ -16,7 +16,6 @@ import (
 	authzmodule "github.com/cosmos/cosmos-sdk/x/authz/module"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/consensus"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
@@ -192,7 +191,6 @@ func TestModuleBasics(t *testing.T) {
 			},
 		),
 		params.AppModuleBasic{},
-		crisis.AppModuleBasic{},
 		custommodule.SlashingModuleBasic{},
 		evidencemodule.AppModuleBasic{},
 		feegrantmodule.AppModuleBasic{},

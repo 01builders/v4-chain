@@ -11,10 +11,6 @@ import (
 
 func TestUnsupportedMsgSamples_Key(t *testing.T) {
 	expectedMsgs := []string{
-		// crisis
-		"/cosmos.crisis.v1beta1.MsgVerifyInvariant",
-		"/cosmos.crisis.v1beta1.MsgVerifyInvariantResponse",
-
 		"/cosmos.gov.v1.MsgCancelProposal",
 		"/cosmos.gov.v1.MsgCancelProposalResponse",
 		"/cosmos.gov.v1beta1.MsgSubmitProposal",

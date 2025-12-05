@@ -122,6 +122,7 @@ func CreateUpgradeHandler(
 
 		sdkCtx.Logger().Info(fmt.Sprintf("Successfully completed %s Upgrade", UpgradeName))
 
+		delete(vm, "crisis")
 		return mm.RunMigrations(ctx, configurator, vm)
 	}
 }

@@ -35,7 +35,6 @@ import (
 	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	rosettaCmd "github.com/cosmos/rosetta/cmd"
@@ -270,7 +269,7 @@ func autoCliOpts(tempApp *dydxapp.App, initClientCtx client.Context) autocli.App
 
 // addModuleInitFlags adds module specific init flags.
 func addModuleInitFlags(startCmd *cobra.Command) {
-	crisis.AddModuleInitFlags(startCmd)
+	// crisis module removed: no module-specific init flags required
 }
 
 func CmdModuleNameToAddress() *cobra.Command {

@@ -10,6 +10,9 @@ const (
 )
 
 var Upgrade = upgrades.Upgrade{
-	UpgradeName:   UpgradeName,
-	StoreUpgrades: store.StoreUpgrades{},
+	UpgradeName: UpgradeName,
+	StoreUpgrades: store.StoreUpgrades{
+		// Remove the crisis module store as part of the v9.5 upgrade.
+		Deleted: []string{"crisis"},
+	},
 }

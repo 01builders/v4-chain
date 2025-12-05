@@ -579,12 +579,6 @@
       }
     },
     "consensus": null,
-    "crisis": {
-      "constant_fee": {
-        "amount": "1000000000000000000",
-        "denom": "asample"
-      }
-    },
     "delaymsg": {
       "delayed_messages": [
         {

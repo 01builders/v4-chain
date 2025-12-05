@@ -135,12 +135,6 @@
     }
   },
   "consensus": null,
-  "crisis": {
-    "constant_fee": {
-      "denom": "stake",
-      "amount": "1000"
-    }
-  },
   "delaymsg": {
     "delayed_messages": [],
     "next_delayed_message_id": 0

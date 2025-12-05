@@ -39,12 +39,6 @@ var (
 		"/cosmos.consensus.v1.MsgUpdateParams":         {},
 		"/cosmos.consensus.v1.MsgUpdateParamsResponse": {},
 
-		// crisis
-		"/cosmos.crisis.v1beta1.MsgUpdateParams":            {},
-		"/cosmos.crisis.v1beta1.MsgUpdateParamsResponse":    {},
-		"/cosmos.crisis.v1beta1.MsgVerifyInvariant":         {},
-		"/cosmos.crisis.v1beta1.MsgVerifyInvariantResponse": {},
-
 		// crypto
 		"/cosmos.crypto.ed25519.PrivKey":            {},
 		"/cosmos.crypto.ed25519.PubKey":             {},

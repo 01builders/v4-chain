@@ -13,7 +13,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/consensus"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
@@ -56,7 +55,6 @@ func GetTestEncodingCfg() testutil.TestEncodingConfig {
 			},
 		),
 		params.AppModuleBasic{},
-		crisis.AppModuleBasic{},
 		custommodule.SlashingModuleBasic{},
 		feegrantmodule.AppModuleBasic{},
 		feetiers.AppModuleBasic{},

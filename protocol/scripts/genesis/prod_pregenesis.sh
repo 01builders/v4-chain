@@ -150,10 +150,6 @@ function overwrite_genesis_production() {
 	dasel put -t int -f "$GENESIS" '.app_state.bridge.acknowledged_event_info.next_id' -v "$BRIDGE_GENESIS_ACKNOWLEDGED_NEXT_ID"
 	dasel put -t int -f "$GENESIS" '.app_state.bridge.acknowledged_event_info.eth_block_height' -v "$BRIDGE_GENESIS_ACKNOWLEDGED_ETH_BLOCK_HEIGHT"
 
-	# Crisis module
-	dasel put -t string -f "$GENESIS" '.app_state.crisis.constant_fee.amount' -v "1$EIGHTEEN_ZEROS" # 1 whole coin of native denom
-	dasel put -t string -f "$GENESIS" '.app_state.crisis.constant_fee.denom' -v "$NATIVE_TOKEN"
-
 	# Genesis time
 	dasel put -t string -f "$GENESIS" '.genesis_time' -v "$GENESIS_TIME"
 }
